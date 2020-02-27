@@ -23,7 +23,7 @@ spiketrains:
   duration: 10 # duration in s
 
 cell_types:
-  # excitatory and inhibitory cell names
+  # excitatory and inhibitory cell names (overwrite if using custom models)
   excitatory: ['PC', 'SS', 'SP']
   inhibitory: ['AC', 'BP', 'BC', 'BTC', 'ChC', 'DBC', 'MC', 'NGC']
 
@@ -89,7 +89,7 @@ recordings:
   preferred_dir: [0, 0, 1]  # preferred drifting direction ([0,0,1] is positive z, direction)
   angle_tol: 15  # tolerance for direction in degrees
   slow_drift_velocity: 5  # drift velocity in um/min.
-  fast_drift_period: 10  # period between fast drift events
-  fast_drift_max_jump: 20 # maximum 'jump' in um for fast drifts
-  fast_drift_min_jump: 5 # minimum 'jump' in um for fast drifts
+  fast_drift_period: 20  # period between fast drift events
+  fast_drift_max_jump: 20 # maximum amplitude jump in uV for fast drifts
+  fast_drift_min_jump: 5 # minimum amplitude jump in uV for fast drifts
   t_start_drift: 0  # time in s from which drifting starts

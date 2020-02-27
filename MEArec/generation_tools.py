@@ -10,8 +10,8 @@ else:
     use_loader = False
 
 
-def gen_recordings(params=None, templates=None, tempgen=None, spgen=None, verbose=True,
-                   tmp_mode='h5', tmp_folder=None):
+def gen_recordings(params=None, templates=None, tempgen=None, spgen=None,
+                   tmp_mode='h5', tmp_folder=None, verbose=True):
     """
     Generates recordings.
 
@@ -25,14 +25,14 @@ def gen_recordings(params=None, templates=None, tempgen=None, spgen=None, verbos
         Template generator object
     spgen : SpikeTrainGenerator
         Spike train generator object. If None spike trains are created from params['spiketrains']
-    verbose : bool
-        If True output is verbose
     tmp_mode : None, 'h5' 'memmap'
         Use temporary file h5 memmap or None
         None is no temporary file.
     tmp_folder: str or Path
         In case of tmp files, you can specify the folder.
         If None, then it is automatic using tempfile.mkdtemp()
+    verbose : bool
+        If True, the output is verbose
 
     Returns
     -------
@@ -118,7 +118,7 @@ def gen_spiketrains(params=None, spiketrains=None, verbose=False):
     spiketrains : list
         List of neo.SpikeTrains (alternative to params definition)
     verbose : bool
-        If True output is verbose
+        If True, the output is verbose
 
     Returns
     -------
@@ -151,7 +151,7 @@ def gen_spiketrains(params=None, spiketrains=None, verbose=False):
 
 
 def gen_templates(cell_models_folder, params=None, templates_tmp_folder=None,
-                  intraonly=False, parallel=True, delete_tmp=True, verbose=True):
+                  intraonly=False, parallel=True, delete_tmp=True, recompile=False, verbose=True):
     """
 
     Parameters
@@ -163,13 +163,15 @@ def gen_templates(cell_models_folder, params=None, templates_tmp_folder=None,
     templates_tmp_folder: str
         Path to temporary folder where templates are temporarily saved
     intraonly : bool
-        if True only intracellular simulation is run
+        If True, only intracellular simulation is run
     parallel : bool
-        if True multi-threading is used
+        If True, multi-threading is used
     delete_tmp :
-        if True the temporary files are deleted
+        If True, the temporary files are deleted
+    recompile: bool
+        If True,
     verbose : bool
-        If True output is verbose
+        If True, the output is verbose
 
     Returns
     -------
@@ -198,6 +200,7 @@ def gen_templates(cell_models_folder, params=None, templates_tmp_folder=None,
                                 templates_folder=templates_tmp_folder,
                                 intraonly=intraonly,
                                 parallel=parallel,
+                                recompile=recompile,
                                 delete_tmp=delete_tmp,
                                 verbose=verbose)
     tempgen.generate_templates()

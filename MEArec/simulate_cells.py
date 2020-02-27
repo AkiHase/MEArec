@@ -863,6 +863,7 @@ def get_physrot_specs(cell_name, model):
     """
     if model == 'bbp':
         polarlim = {'BP': [0., 15.],
+                    'AC': None,
                     'BTC': None,  # [0.,15.],
                     'ChC': None,  # [0.,15.],
                     'DBC': None,  # [0.,15.],
@@ -871,12 +872,12 @@ def get_physrot_specs(cell_name, model):
                     'NBC': None,
                     'NGC': None,
                     'SBC': None,
-                    'STPC': [0., 15.],
-                    'TTPC1': [0., 15.],
-                    'TTPC2': [0., 15.],
-                    'UTPC': [0., 15.]}
+                    'PC': [0., 15.],
+                    'SS': [0., 15.],
+                    'SP': [0., 15.]}
         # how it's implemented, the NMC y axis points into the pref_orient direction after rotation
         pref_orient = {'BP': [0., 0., 1.],
+                       'AC': None,
                        'BTC': None,  # [0.,0.,1.],
                        'ChC': None,  # [0.,0.,1.],
                        'DBC': None,  # [0.,0.,1.],
@@ -885,14 +886,19 @@ def get_physrot_specs(cell_name, model):
                        'NBC': None,
                        'NGC': None,
                        'SBC': None,
-                       'STPC': [0., 0., 1.],
-                       'TTPC1': [0., 0., 1.],
-                       'TTPC2': [0., 0., 1.],
-                       'UTPC': [0., 0., 1.]}
-        return polarlim[cell_name.split('_')[1]], pref_orient[cell_name.split('_')[1]]
+                       'PC': [0., 0., 1.],
+                       'SS': [0., 0., 1.],
+                       'SP': [0., 0., 1.]}
+        polar = None
+        orient = None
+        for k in polarlim.keys():
+            if k in cell_name.split('_')[1]:
+                polar = polarlim[k]
+                orient = pref_orient[k]
+                break
+        return polar, orient
     else:
-        raise NotImplementedError('Cell model %s is not implemented' \
-                                  % model)
+        raise NotImplementedError('Cell model %s is not implemented' % model)
 
 
 def return_extracellular_spike(cell, cell_name, model_type,
