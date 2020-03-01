@@ -83,6 +83,8 @@ def chunk_convolution(ch, i_start, i_stop, chunk_start,
     np.random.seed(seed_list[ch])
     length = i_stop - i_start
 
+    if verbose:
+        print('Start convolutions for chunk', ch)
     template_idxs = []
     if extract_spike_traces:
         spike_traces = np.zeros((length, len(st_idxs)), dtype=dtype)
